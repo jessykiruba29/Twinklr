@@ -1,0 +1,22 @@
+*{
+    background-color: rgb(33, 42, 58);
+}
+.flexx{
+
+    
+    display:flex;
+    margin-top: 2%;
+    margin-left: 5%;
+}
+.container{
+    display:flex;
+    gap:75%;
+    
+    
+}
+.small{
+    margin-left: 2%;
+    font-size: 40px;
+    margin-top: 2%;
+}
+
