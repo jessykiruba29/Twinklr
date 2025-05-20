@@ -160,7 +160,7 @@ const handlecomm=async () => {
       {products.map(product => (
         <div key={product._id} className="product-card">
           <h2 className='inv'>{product.name || "anonymous"}</h2>
-          <img src={`http://localhost:5000${product.image}`} className="im" onClick={()=>popup(product)}/>
+          <img src={`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${product.image}`} className="im" onClick={()=>popup(product)}/>
           
           <p className='desc'>{product.description}</p>
           <div className='l'>
@@ -185,7 +185,7 @@ const handlecomm=async () => {
         <button className='close' onClick={()=>setpop(false)}>close</button>
         </div>
         <h3>{selectedImage.description}</h3>
-        <img className="comm_img" src={`http://localhost:5000${selectedImage.image}`}></img>
+        <img className="comm_img" src={`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${selectedImage.image}`}></img>
         <div className='commsection'>
           
           <ul>
