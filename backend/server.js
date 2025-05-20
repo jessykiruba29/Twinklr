@@ -9,10 +9,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 
-
+const PORT = process.env.PORT || 5000;
 dotenv.config();
 const app = express();
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors());
 
 
 
@@ -221,8 +221,9 @@ app.get("/products", async (req, res) => {
 // Start server
 const startServer = async () => {
   await connectDB();
-  app.listen(5000, () => {
-    console.log('Server started at http://localhost:5000');
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server started at http://localhost:${PORT}`);
   });
 };
 
