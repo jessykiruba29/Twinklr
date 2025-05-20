@@ -8,11 +8,20 @@ const Signup=()=>{
     const [password,setPass]=useState('');
 const navigate=useNavigate();
 
-    const handleSignup=async()=>{
-        const res=await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/signup`,{name,email,password});
-        if(res.status === 201) {
-    localStorage.setItem("user", JSON.stringify({ name, email }));
-    navigate('/login');
+    const handleSignup = async () => {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/signup`,
+      { name, email, password }
+    );
+
+    if (res.status === 201) {
+      localStorage.setItem("user", JSON.stringify({ name, email }));
+      navigate('/');
+    }
+  } catch (error) {
+    console.error("Signup error:", error);
+    
   }
 };
         

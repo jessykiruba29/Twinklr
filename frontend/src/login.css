@@ -1,4 +1,4 @@
-/* Login.css */
+
 .log body {
   background: rgb(7, 6, 52);
   display: flex;
@@ -11,7 +11,7 @@
 
 .log h2 {
   color: rgb(208, 149, 229);
-  font-size: 50px;
+  font-size: 70px;
   text-align: center;
   
   text-shadow: 0 0 10px rgba(208, 149, 229, 0.5);
@@ -53,7 +53,7 @@
 .log button {
   display: block;
   width: 330px;
-  padding: 15px;
+  padding: 10px;
   margin: 25px auto;
   border-radius: 8px;
   border: none;
