@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-app.use('/uploads', express.static('uploads')); // serve images statically
+app.use('/uploads', express.static('uploads')); 
 
 
 
@@ -198,6 +198,7 @@ router.put('/:id/comments', async (req, res) => {
 });
 
 
+////////////////////////////////////////////////////////////////////////////////
 
 app.get("/products", async (req, res) => {
   try {
@@ -226,3 +227,6 @@ const startServer = async () => {
 };
 
 startServer();
+
+
+//////////////////END////////////////////////////////////////////////////////////
