@@ -17,10 +17,10 @@ const Login=()=>{
   const handleLogin = async () => {
     setError('');
     try {
-      const res=await axios.post('http://localhost:5000/', { email, password });
+      const res=await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/`, { email, password });
       if (res.data === "Welcome bro") {
         
-        const nameRes=await axios.post("http://localhost:5000/getUser", { email });
+        const nameRes=await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/getUser`, { email });
         const name=nameRes.data.name;
 
         localStorage.setItem("user", JSON.stringify({ name, email }));

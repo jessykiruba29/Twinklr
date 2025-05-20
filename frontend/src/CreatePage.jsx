@@ -25,7 +25,7 @@ const CreatePage = () => {
   const formData = new FormData();
   formData.append("image", file);
 
-  axios.post("http://localhost:5000/upload", formData)
+  axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/upload`, formData)
     .then(res => {
       setnewProduct({ ...newProduct, image: res.data.filePath }); 
     })
@@ -35,7 +35,7 @@ const CreatePage = () => {
 useEffect(() => {
   const storedUser=JSON.parse(localStorage.getItem("user")); //stores object id in local storage
   if (storedUser?.email) {
-    axios.post("http://localhost:5000/getUser", { email: storedUser.email })
+    axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/getUser`, { email: storedUser.email })
       .then(res => {
         const fetchedName = res.data.name;
         setnewProduct(prev => ({ ...prev, name: fetchedName }));
@@ -48,7 +48,7 @@ useEffect(() => {
     const handleSubmit=async () => {
       console.log("Submitting product:", newProduct);
         try {
-          const res=await axios.post('http://localhost:5000/products', newProduct); //gets post req from backend
+          const res=await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/products`, newProduct); //gets post req from backend
           console.log(res.data);
           
           navigate('/home',{state:{description:newProduct.description,image:newProduct.image}});

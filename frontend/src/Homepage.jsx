@@ -43,7 +43,7 @@ const Homepage=()=>{
     }
     
    
-  axios.get('http://localhost:5000/products')
+  axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/products`)
     .then(res => {
       //like for each post
       const prodlike=res.data.data.map(product => ({
@@ -60,7 +60,7 @@ const Homepage=()=>{
 
 const handlelik=async(pid)=>{
   try {
-    const res=await axios.put(`http://localhost:5000/products/${pid}`,{
+    const res=await axios.put(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/products/${pid}`,{
       email:userEmail //send email to backend
     });
     const updatedProduct=res.data.product; 
@@ -111,7 +111,7 @@ const handlecomm=async () => {
 
   try {
     const res=await axios.put(
-      `http://localhost:5000/products/${selectedImage._id}/comments`,
+      `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/products/${selectedImage._id}/comments`,
       {
         userId: User,  
         text: comment

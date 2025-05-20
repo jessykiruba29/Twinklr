@@ -9,7 +9,7 @@ const Signup=()=>{
 const navigate=useNavigate();
 
     const handleSignup=async()=>{
-        const res=await axios.post("http://localhost:5000/signup",{name,email,password});
+        const res=await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/signup`,{name,email,password});
         if(res.status === 201) {
     localStorage.setItem("user", JSON.stringify({ name, email }));
     navigate('/login');
