@@ -24,29 +24,55 @@ const CreatePage = () => {
   const file = e.target.files[0];
   if (!file) return;
 
+  // Validate file type and size
+  const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  const maxSize = 5 * 1024 * 1024; // 5MB
+
+  if (!validTypes.includes(file.type)) {
+    alert('Please upload a valid image file (JPEG, PNG, GIF)');
+    return;
+  }
+
+  if (file.size > maxSize) {
+    alert('Image size should be less than 5MB');
+    return;
+  }
+
   const reader = new FileReader();
-  reader.readAsDataURL(file); // read as full data URL
+  reader.readAsDataURL(file);
 
   reader.onload = () => {
-    const dataUrl = reader.result;  // full data URL, includes prefix
+    const dataUrl = reader.result;
+    
+    // Show loading state
+    setnewProduct(prev => ({ ...prev, isLoading: true }));
 
     axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/upload`, {
       image: dataUrl
     })
     .then(res => {
-      setnewProduct(prev => ({
-        ...prev,
-        image: res.data.filePath
-      }));
+      if (res.data.success && res.data.filePath) {
+        setnewProduct(prev => ({
+          ...prev,
+          image: res.data.filePath,
+          isLoading: false
+        }));
+        alert('Image uploaded successfully!');
+      } else {
+        throw new Error('Invalid response from server');
+      }
     })
     .catch(err => {
       console.error("Upload failed:", err);
+      setnewProduct(prev => ({ ...prev, isLoading: false }));
       alert("Image upload failed. Please try again.");
     });
   };
 
   reader.onerror = (error) => {
     console.error("Error reading file:", error);
+    setnewProduct(prev => ({ ...prev, isLoading: false }));
+    alert("Error reading file. Please try another image.");
   };
 };
 

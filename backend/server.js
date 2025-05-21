@@ -52,27 +52,43 @@ app.post("/upload", async (req, res) => {
   try {
     const fileStr = req.body.image;
 
-    // Validate input
     if (!fileStr || typeof fileStr !== "string") {
-      return res.status(400).json({ error: "Invalid image data (must be a Base64 string)" });
+      return res.status(400).json({ 
+        success: false,
+        error: "Invalid image data (must be a Base64 string)" 
+      });
     }
 
-    // Upload to Cloudinary
+    // Verify it's a valid data URL
+    if (!fileStr.startsWith('data:image/')) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid image format (must be a valid image data URL)"
+      });
+    }
+
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
       folder: "twinklr",
-      resource_type: "auto",
-      filename_override: `img-${Date.now()}`,
+      resource_type: "image",
+      transformation: [
+        { width: 800, height: 800, crop: "limit" },
+        { quality: "auto" }
+      ]
     });
 
     res.json({ 
       success: true,
       filePath: uploadResponse.secure_url,
       publicId: uploadResponse.public_id,
+      format: uploadResponse.format,
+      bytes: uploadResponse.bytes
     });
   } catch (err) {
-    console.error("Cloudinary Upload Error:", err.message || err);
+    console.error("Cloudinary Upload Error:", err);
     res.status(500).json({ 
-      error: err.message || "Failed to upload image" 
+      success: false,
+      error: err.message || "Failed to upload image",
+      details: err.response?.data?.message || "No additional details"
     });
   }
 });
