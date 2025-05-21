@@ -15,12 +15,10 @@ const CreatePage = () => {
         image:""
 
     });
-    const handleChange = (e) => {
-  setnewProduct(prev => ({
-    ...prev,
-    [e.target.name]: e.target.value
-  }));
-};
+    const handleChange=(e)=>{
+        setnewProduct({...newProduct,[e.target.name]:e.target.value}); 
+
+    };
 
     const handleFileChange = (e) => {
   const file = e.target.files[0];
