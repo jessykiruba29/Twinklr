@@ -40,6 +40,8 @@ const navigate=useNavigate();
             <button onClick={handleSignup}>Submit</button>
             <Link to='/'>login page</Link>
 
+            
+
         </div>
 </div>
 

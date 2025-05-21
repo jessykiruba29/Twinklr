@@ -7,19 +7,23 @@ import Art from './models/art.model.js';
 import contactRoutes from './routes/contactRoutes.js';
 import mongoose from 'mongoose';
 import cors from 'cors';
-
+import {v2 as cloudinary} from 'cloudinary';
 
 const PORT = process.env.PORT || 5000;
 dotenv.config();
 const app = express();
 app.use(cors());
 
-
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET 
+});
 
 // Middleware
 app.use(express.json());
 
-import multer from 'multer';
+/*import multer from 'multer';
 import path from 'path';
 import { RiComputerFill } from 'react-icons/ri';
 
@@ -38,6 +42,29 @@ app.use('/uploads', express.static('uploads'));
 app.post("/upload", upload.single("image"), (req, res) => {
   res.json({ filePath: `/uploads/${req.file.filename}` });
 });
+*/
+
+
+app.post("/upload", async (req, res) => {
+  try {
+    // File comes as base64 string in request body
+    const fileStr = req.body.image; 
+    
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+      folder: "your-app-name", // Optional folder in Cloudinary
+      resource_type: "auto" // Automatically detect image/video
+    });
+    
+    res.json({ 
+      filePath: uploadResponse.secure_url,
+      publicId: uploadResponse.public_id // Useful for later deletion
+    });
+  } catch (err) {
+    console.error('Error uploading to Cloudinary:', err);
+    res.status(500).json({ err: 'Something went wrong with upload' });
+  }
+});
+
 
 //-------------------------------------------------------------------
 

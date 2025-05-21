@@ -21,16 +21,37 @@ const CreatePage = () => {
     };
 
     const handleFileChange = (e) => {
-  const file = e.target.files[0];
-  const formData = new FormData();
-  formData.append("image", file);
-
-  axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/upload`, formData)
-    .then(res => {
-      setnewProduct({ ...newProduct, image: res.data.filePath }); 
-    })
-    .catch(err => console.error("Upload failed:", err));
-};
+      const file = e.target.files[0];
+      if (!file) return;
+        
+        // Convert file to base64
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        
+        reader.onload = () => {
+            const base64String = reader.result.split(',')[1]; // Remove the data URL prefix
+            
+            // Send to your backend
+            axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/upload`, { 
+                image: base64String 
+            })
+            .then(res => {
+                // Now we get the Cloudinary URL in response
+                setnewProduct({ 
+                    ...newProduct, 
+                    image: res.data.filePath 
+                });
+            })
+            .catch(err => {
+                console.error("Upload failed:", err);
+                alert("Image upload failed. Please try again.");
+            });
+        };
+        
+        reader.onerror = (error) => {
+            console.error("Error reading file:", error);
+        };
+    };
 
 useEffect(() => {
   const storedUser=JSON.parse(localStorage.getItem("user")); //stores object id in local storage
