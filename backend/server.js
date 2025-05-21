@@ -46,26 +46,36 @@ app.post("/upload", upload.single("image"), (req, res) => {
 */
 
 
+
+
 app.post("/upload", async (req, res) => {
   try {
-    // File comes as base64 string in request body
-    const fileStr = req.body.image; 
+    const fileStr = req.body.image;
     
+    if (!fileStr) {
+      return res.status(400).json({ err: "No image data provided" });
+    }
+
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-      folder: "your-app-name", // Optional folder in Cloudinary
-      resource_type: "auto" // Automatically detect image/video
+      folder: "your-app-name",
+      resource_type: "auto",
+      filename_override: `img-${Date.now()}`, // Unique short name
+      discard_original_filename: true,
     });
-    
+
     res.json({ 
       filePath: uploadResponse.secure_url,
-      publicId: uploadResponse.public_id // Useful for later deletion
+      publicId: uploadResponse.public_id,
     });
   } catch (err) {
-    console.error('Error uploading to Cloudinary:', err);
-    res.status(500).json({ err: 'Something went wrong with upload' });
+    console.error('Cloudinary error:', err.message);
+    res.status(500).json({ 
+      err: err.message.includes("ENAMETOOLONG") 
+        ? "Filename too long: invalid image data" 
+        : "Upload failed" 
+    });
   }
 });
-
 
 //-------------------------------------------------------------------
 
