@@ -7,7 +7,7 @@ import Homepage from "./Homepage";
 
 function App() {
   return (
-    <Box minH="100vh">
+    <Box minH="99vh">
      
         <Routes>
           <Route path="/" element={<Login />} />
