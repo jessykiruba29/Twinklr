@@ -278,15 +278,27 @@ body.popup-open {
   user-select: none;
   
 }
+.fxd-chatbot input{
+  width:20px
 
+
+}
+.fxd-chatbot .window{
+  width:300px;
+  
+  
+}
+.fxd-chatbot h3{
+  margin-top:5px;
+}
 
 .fxd{
   background-color: #1c1b1b09;
   bottom: 10px;
   display: flex;
-  justify-content:space-between;
-  display: flex;
-  right:20px;
+  
+  
+  right:100px;
   z-index: 100;
   padding:20px;
   position: fixed;

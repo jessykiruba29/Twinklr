@@ -5,6 +5,8 @@ import './home.css';
 import { Box, Button, HStack } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import Widget from 'yuba-widget';
+import 'yuba-widget/src/components/widget.css';
 
 
 const Homepage=()=>{
@@ -19,7 +21,7 @@ const Homepage=()=>{
     
     const location = useLocation();
 
-
+  const liemail=userEmail
     const [userId,setUserId]=useState('');
 
    useEffect(() => {
@@ -204,6 +206,9 @@ const handlecomm=async () => {
         
       </div>
     )}
+    <div className='fxd-chatbot'>
+<Widget configuration="https://twinklr.vercel.app/config.json" userEmail={liemail} />	
+</div>
     <div className='fxd'>
     <div className="sticky-footer">
   <button onClick={scrollToTop} title="Back to top">

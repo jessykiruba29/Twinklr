@@ -1,0 +1,32 @@
+{
+  "endpoints": [
+    
+    {
+      "description": "Like a product by product ID, sending user email",
+      "url": "http://localhost:4000/products/:productId",
+      "method": "PUT",
+      "payload": {
+        "email": "str"
+      }
+    },
+    {
+      "description": "Add a comment to a product by product ID",
+      "url": "http://localhost:4000/products/:productId/comments",
+      "method": "PUT",
+      "payload": {
+        "userId": "str",
+        "text": "str"
+      }
+    },
+    {
+      "description": "Add a new product",
+      "url": "https://twinklr-backend.onrender.com/products",
+      "method": "POST",
+      "payload": {
+        "email": "str",
+        "description": "str",
+        "image":"str"
+      }
+    }
+  ]
+}
