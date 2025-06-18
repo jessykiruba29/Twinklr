@@ -1,0 +1,27 @@
+{
+  "endpoints": [
+    {
+      "description": "Fetch all products",
+      "url": "http://localhost:4000/products",
+      "method": "GET",
+      "payload": {}
+    },
+    {
+      "description": "Like a product by sending user email",
+      "url": "http://localhost:4000/products/{productId}",
+      "method": "PUT",
+      "payload": {
+        "email": "<user email>"
+      }
+    },
+    {
+      "description": "Add a comment to a product by productId",
+      "url": "http://localhost:4000/products/{productId}/comments",
+      "method": "PUT",
+      "payload": {
+        "userId": "<user id>",
+        "text": "<comment text>"
+      }
+    }
+  ]
+}

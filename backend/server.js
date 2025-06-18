@@ -59,7 +59,7 @@ app.post("/upload", async (req, res) => {
       });
     }
 
-    // Verify it's a valid data URL
+    // valid url
     if (!fileStr.startsWith('data:image/')) {
       return res.status(400).json({
         success: false,
@@ -166,10 +166,24 @@ app.post('/getUser', async (req, res) => {
 
 // POST (for creating new product)
 app.post("/products", async (req, res) => {
+  
   const product=req.body;
+  if (product.name === "anonymous" && product.email) {
+    try {
+      const user = await User.findOne({ email: product.email });
+      if (user) {
+        product.name = user.name;
+      } else {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+    } catch (err) {
+      return res.status(500).json({ success: false, message: "Server error" });
+    }
+  }
   if (!product.description || !product.image) { //makes sure that image and description are filled by user
     return res.status(400).json({ success: false, message: "Please provide everything" });
   }
+  
 
   const newProduct = new Product(product);
 
