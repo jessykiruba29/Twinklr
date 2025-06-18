@@ -5,8 +5,8 @@ import './home.css';
 import { Box, Button, HStack } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-import Widget from 'yuba-widget';
-import 'yuba-widget/src/components/widget.css';
+import 'yuba-widget'; // (auto-imports style if declared correctly)
+
 
 
 const Homepage=()=>{
