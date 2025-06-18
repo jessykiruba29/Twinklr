@@ -6,7 +6,7 @@ import { Box, Button, HStack } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import Widget from 'yuba-widget';
-import 'yuba-widget/dist/yuba-widget.css';
+import 'yuba-widget/dist/widget.css';
 
 
 
