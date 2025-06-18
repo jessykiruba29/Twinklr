@@ -138,14 +138,7 @@ body.popup-open {
   color: #4a2d7a;
 }
 
-.popup h3 {
-  margin: 0 0 15px 0;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 18px;
-  color: #363535;
-  font-weight: 400;
-  margin-left: 3%;
-}
+
 
 .popup .flx {
   display: flex;
@@ -276,32 +269,6 @@ body.popup-open {
   filter: blur(10px);
   pointer-events: none;
   user-select: none;
-  
-}
-.fxd-chatbot input{
-  width:20px
-
-
-}
-.fxd-chatbot .window{
-  width:300px;
-  
-  
-}
-.fxd-chatbot h3{
-  margin-top:5px;
-}
-
-.fxd{
-  background-color: #1c1b1b09;
-  bottom: 10px;
-  display: flex;
-  
-  
-  right:100px;
-  z-index: 100;
-  padding:20px;
-  position: fixed;
   
 }
 
